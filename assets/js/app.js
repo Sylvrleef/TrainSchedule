@@ -11,41 +11,38 @@ $(document).ready(function(){
     firebase.initializeApp(config);
 
     var database = firebase.database();
-    var employeeName = "";
-    var role = "";
-    var startDate = "";
-    var monthlyRate = 0;
-    var monthsWorked = 0;
-    var totalBilled = 0;
+    var trainName = "";
+    var destination = "";
+    var frequency = "";
+    var nextArrival = "";
+    var minutesAway = "";
 
 
-  $("#addEmployee").on("click", function(){
-    employeeName = $("#name").val().trim();
-    role = $("#inputRole").val().trim();
-    startDate = $("#startDate").val().trim();
-    monthlyRate = $("#montlyRate").val().trim();
+  $("#addTrain").on("click", function(){
+    trainName = $("#name").val().trim();
+    destination = $("#destination").val().trim();
+    frequency = $("#frequency").val().trim();
+    time = $("#time").val().trim();
 
     database.ref().push({
-      employeeName: employeeName,
-      role: role,
-      startDate: startDate,
-      monthlyRate: monthlyRate
-      // dateAdded: database.ServerValue.TIMESTAMP
+      trainName: trainName,
+      destination: destination,
+      frequency: frequency,
+      time: time,
     });
 
   });
 
 
 database.ref().on("child_added", function(snapshot){
-  var displayName = snapshot.val().employeeName;
-  var displayRole = snapshot.val().role;
-  var displayDate = snapshot.val().startDate;
-  var displayMonthlyRate = snapshot.val().monthlyRate;
-  var displayMonthsWorked = snapshot.val().monthsWorked;
-  var displayTotalBilled = snapshot.val().totalBilled;
+  var displayTrainName = snapshot.val().trainName;
+  var displayDestination = snapshot.val().destination;
+  var displayFrequency = snapshot.val().frequency;
+  var displayNextArrival = snapshot.val().nextArrival;
+  var displayMinutesAway = snapshot.val().minutesAway;
 
 
-  $("#currentEmployees").append("<tr><td>" + displayName + "</td><td>" + displayRole + "</td><td>" + displayDate + "</td><td>" + displayMonthsWorked + "</td><td>" + displayMonthlyRate + "</td><td>" + displayTotalBilled + "</td></tr>");
+  $("#currentTrains").append("<tr><td>" + displayTrainName + "</td><td>" + displayDestination + "</td><td>" + displayFrequency + "</td><td>" + displayNextArrival + "</td><td>" + displayMinutesAway + "</td></tr>");
 
 });
 
